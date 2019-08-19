@@ -48,5 +48,12 @@ end
 post '/new' do
 	# получаем переменную из post-запроса
 	@textarea = params[:textarea]
+
+	# проверка введенных параметров
+	if @textarea.length <= 0
+		@error = 'Error. You need type text'
+		return erb :new
+	end		
+	
 	erb "<i>You typed:</i> #{@textarea}"
 end
