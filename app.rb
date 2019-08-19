@@ -15,3 +15,8 @@ end
 get '/new' do
 	erb :new
 end
+
+post '/new' do
+	@textarea = params[:textarea]
+	erb "<i>You typed:</i> #{@textarea}"
+end
