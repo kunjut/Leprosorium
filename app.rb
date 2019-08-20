@@ -89,6 +89,9 @@ get '/details/:post_id' do # синатра берет id не из БД
 	# выбираем этот один пост в переменную @row
 	@row = posts[0] 
 
+	# выбираем коментарии из БД для поста
+	@comments = @db.execute 'SELECT * FROM Comments where post_id = ? ORDER BY id', [post_id]
+
 	#возвращаем представление details.erb
 	erb :details
 end
