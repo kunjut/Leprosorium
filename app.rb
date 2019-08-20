@@ -68,11 +68,17 @@ post '/new' do
 end
 
 # вывод информации о посте, универсальным обрабочиком
-get '/details/:post_id' do# синатра берет id не из БД
+get '/details/:post_id' do # синатра берет id не из БД
+	
+	# получаем переменную из url'a
 	post_id = params[:post_id]
 	
+	# получяаем список постов (будет только один пост)
 	posts = @db.execute 'select * from Posts where id = ?', [post_id]
+
+	# выбираем этот один пост в переменную @row
 	@row = posts[0] 
 
+	#возвращаем представление details.erb
 	erb :details
 end

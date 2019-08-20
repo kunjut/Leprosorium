@@ -1,9 +1,22 @@
-<h4>Post details</h4>
+<h4>Post details:</h4>
 
 <p>
     <br />
     <%= @row['content']%>
     <br /><br />
-    <i>Added at: <%= @row['created_date']%></i>
+    <i>Added at: <%= @row['created_date']%></i><hr />
             
+</p>
+
+<br />
+<h4>Comments:</h4>
+
+<p>
+    <form action='/details/<%= @row['id'] %>' method="POST" role="form">
+    <div class="form-group">
+        <!--<label for="exampleFormControlTextarea1">Example textarea</label>-->
+        <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Type comment text here"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add comment</button>
+    </form>
 </p>
