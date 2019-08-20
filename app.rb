@@ -104,6 +104,20 @@ post '/details/:post_id' do # синатра берет id не из БД
 		# получаем переменную из post-запроса
 		content = params[:content]
 
+		# Сохранение данных в БД
+		@db.execute 'INSERT INTO Comments 
+		(
+			content, 
+			created_date, 
+			post_id
+		) 
+			VALUES 
+		(
+			?, 
+			datetime(), 
+			?
+		)', [content, post_id]
+
 		erb "you typed comment #{content} for post #{post_id}"
 
 end
