@@ -2,7 +2,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
-require 'sqlite3'\
+require 'sqlite3'
 
 # функция инициализации БД
 def init_db
@@ -47,13 +47,16 @@ end
 # (браузер отправляет данные на сервер)
 post '/new' do
 	# получаем переменную из post-запроса
-	@textarea = params[:textarea]
+	@content = params[:content]
 
 	# проверка введенных параметров
-	if @textarea.length <= 0
+	if @content.length <= 0
 		@error = 'Error. You need type text'
 		return erb :new
 	end		
 	
-	erb "<i>You typed:</i> #{@textarea}"
+	# Отдельно db инициализоровать не нужно, т.к. это сейчас выполняет метод before
+	@db.execute 'INSERT INTO Posts (content, created_date) VALUES (?, datetime())', [@content]
+
+	erb "<i>You typed:</i> #{@content}"
 end
