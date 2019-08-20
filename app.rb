@@ -70,5 +70,9 @@ end
 # вывод информации о посте, универсальным обрабочиком
 get '/details/:post_id' do# синатра берет id не из БД
 	post_id = params[:post_id]
-	erb "Displaying information for post with id #{post_id}"
+	
+	posts = @db.execute 'select * from Posts where id = ?', [post_id]
+	@row = posts[0] 
+
+	erb :details
 end
