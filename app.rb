@@ -66,3 +66,9 @@ post '/new' do
 	redirect to '/'
 	#erb "<i>You typed:</i> #{@content}"
 end
+
+# вывод информации о посте, универсальным обрабочиком
+get '/details/:post_id' do# синатра берет id не из БД
+	post_id = params[:post_id]
+	erb "Displaying information for post with id #{post_id}"
+end
