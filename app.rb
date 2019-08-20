@@ -91,7 +91,7 @@ get '/details/:post_id' do # синатра берет id не из БД
 
 	# выбираем коментарии из БД для поста
 	@comments = @db.execute 'SELECT * FROM Comments where post_id = ? ORDER BY id', [post_id]
-
+	
 	#возвращаем представление details.erb
 	erb :details
 end
@@ -106,6 +106,16 @@ post '/details/:post_id' do # синатра берет id не из БД
 
 	# получаем переменную из post-запроса
 	content = params[:content]
+
+	posts = @db.execute 'select * from Posts where id = ?', [post_id]
+	@row = posts[0]
+	@comments = @db.execute 'SELECT * FROM Comments where post_id = ? ORDER BY id', [post_id] 
+	
+	# валидация на пустой ввод
+	if content.length <= 0
+		@error = 'Try type text'
+		return erb :details
+	end
 
 	# Сохранение данных в БД
 	@db.execute 'INSERT INTO Comments 
