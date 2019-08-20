@@ -98,26 +98,29 @@ end
 # а мы их принимаем
 post '/details/:post_id' do # синатра берет id не из БД
 
-		# получаем динамическую переменную из url'a
-		post_id = params[:post_id]
-	
-		# получаем переменную из post-запроса
-		content = params[:content]
+	# получаем динамическую переменную из url'a
+	post_id = params[:post_id]
 
-		# Сохранение данных в БД
-		@db.execute 'INSERT INTO Comments 
-		(
-			content, 
-			created_date, 
-			post_id
-		) 
-			VALUES 
-		(
-			?, 
-			datetime(), 
-			?
-		)', [content, post_id]
+	# получаем переменную из post-запроса
+	content = params[:content]
 
-		erb "you typed comment #{content} for post #{post_id}"
+	# Сохранение данных в БД
+	@db.execute 'INSERT INTO Comments 
+	(
+		content, 
+		created_date, 
+		post_id
+	) 
+		VALUES 
+	(
+		?, 
+		datetime(), 
+		?
+	)', [content, post_id]
+
+	# Перенаправление на страницу поста
+	redirect to ('/details/' + post_id)
+
+	#	erb "you typed comment #{content} for post #{post_id}"
 
 end
