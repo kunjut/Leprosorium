@@ -28,7 +28,8 @@ configure do
 	@db.execute 'CREATE TABLE IF NOT EXISTS Posts (
 		id           INTEGER PRIMARY KEY AUTOINCREMENT,
 		created_date DATE,
-		content      TEXT
+		content      TEXT,
+		author_name  TEXT
 	)'
 	
 	# создает таблицу если она не существует
@@ -61,6 +62,7 @@ end
 post '/new' do
 	# получаем переменную из post-запроса
 	content = params[:content]
+	author_name = params[:author_name]
 
 	# проверка введенных параметров
 	if content.length <= 0
@@ -70,7 +72,18 @@ post '/new' do
 	
 	# Отдельно db инициализоровать не нужно, т.к. это сейчас выполняет метод before
 	# Сохранение данных в БД
-	@db.execute 'INSERT INTO Posts (content, created_date) VALUES (?, datetime())', [content]
+	@db.execute 'INSERT INTO Posts 
+	(
+		content, 
+		created_date, 
+		author_name
+	) 
+		VALUES 
+	(
+		?, 
+		datetime(), 
+		?
+	)', [content, author_name]
 
 	# Перенаправление на главную страницу
 	redirect to '/'
