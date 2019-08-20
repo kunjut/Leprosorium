@@ -50,27 +50,27 @@ end
 # (браузер отправляет данные на сервер)
 post '/new' do
 	# получаем переменную из post-запроса
-	@content = params[:content]
+	content = params[:content]
 
 	# проверка введенных параметров
-	if @content.length <= 0
+	if content.length <= 0
 		@error = 'Error. You need type text'
 		return erb :new
 	end		
 	
 	# Отдельно db инициализоровать не нужно, т.к. это сейчас выполняет метод before
 	# Сохранение данных в БД
-	@db.execute 'INSERT INTO Posts (content, created_date) VALUES (?, datetime())', [@content]
+	@db.execute 'INSERT INTO Posts (content, created_date) VALUES (?, datetime())', [content]
 
 	# Перенаправление на главную страницу
 	redirect to '/'
-	#erb "<i>You typed:</i> #{@content}"
+	#erb "<i>You typed:</i> #{content}"
 end
 
 # вывод информации о посте, универсальным обрабочиком
 get '/details/:post_id' do # синатра берет id не из БД
 	
-	# получаем переменную из url'a
+	# получаем динамическую переменную из url'a
 	post_id = params[:post_id]
 	
 	# получяаем список постов (будет только один пост)
@@ -81,4 +81,19 @@ get '/details/:post_id' do # синатра берет id не из БД
 
 	#возвращаем представление details.erb
 	erb :details
+end
+
+# обработчик post-запроса 
+# браузер отправляет данные на сервер
+# а мы их принимаем
+post '/details/:post_id' do # синатра берет id не из БД
+
+		# получаем динамическую переменную из url'a
+		post_id = params[:post_id]
+	
+		# получаем переменную из post-запроса
+		content = params[:content]
+
+		erb "you typed comment #{content} for post #{post_id}"
+
 end
