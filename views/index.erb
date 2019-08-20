@@ -4,7 +4,9 @@
     <% @posts.each do |post|%>
         <%= post['content']%>
             <br /><br />
-        <i>Added at: <%= post['created_date']%> ⁞ </i>
+        <i>Added at: <%= post['created_date']%></i> • 
+            <!-- <br /><br /> -->
+        <i>Author is: <%= post['author_name']%></i> • 
             <!-- <br /><br /> -->
         <a href='/details/<%= post['id'] %>'>Comments</a>
             <hr />
