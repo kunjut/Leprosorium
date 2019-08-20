@@ -20,13 +20,23 @@ end
 # configure вызывается каждый раз, при конфигурации приложения:
 # когда изменился код программы и перезагрузилась страница  
 configure do
+	
 	# инициализация БД
 	init_db
+	
 	# создает таблицу если она не существует
 	@db.execute 'CREATE TABLE IF NOT EXISTS Posts (
 		id           INTEGER PRIMARY KEY AUTOINCREMENT,
 		created_date DATE,
 		content      TEXT
+	)'
+	
+	# создает таблицу если она не существует
+	@db.execute 'CREATE TABLE IF NOT EXISTS Comments (
+		id           INTEGER PRIMARY KEY AUTOINCREMENT,
+		created_date DATE,
+		content      TEXT,
+		post_id		 INTEGER
 	)'
 end
 
