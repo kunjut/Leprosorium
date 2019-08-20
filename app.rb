@@ -8,7 +8,7 @@ require 'sqlite3'
 def init_db
 	@db = SQLite3::Database.new 'Leprosorium.db'
 	@db.results_as_hash = true
-#	return @db
+#	return @db #и без этого работает вроде как надо
 end
 
 # before вызывается каждый раз, кроме configure
@@ -31,6 +31,7 @@ configure do
 end
 
 get '/' do
+	# выбираем список постов из БД
 	@posts = @db.execute 'select * from Posts ORDER BY id DESC'
 	erb :index			
 end
