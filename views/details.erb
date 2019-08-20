@@ -12,6 +12,19 @@
 <h4>Comments:</h4>
 
 <p>
+    <br />
+    <% @comments.each do |comm| %>
+        <%= comm['content'] %>
+            <br /><br />
+        <span style="font-size: 85%; font-style: italic; color: #999;">Added at: <%= comm['created_date'] %></span>
+            <hr />
+    <% end %>
+</p>
+
+<br />
+<h4>Add your comment:</h4>
+
+<p>
     <form action='/details/<%= @row['id'] %>' method="POST" role="form">
     <div class="form-group">
         <!--<label for="exampleFormControlTextarea1">Example textarea</label>-->
