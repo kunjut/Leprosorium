@@ -16,7 +16,9 @@
     <% @comments.each do |comm| %>
         <%= comm['content'] %>
             <br /><br />
-        <span style="font-size: 85%; font-style: italic; color: #999;">Added at: <%= comm['created_date'] %></span>
+        <span style="font-size: 85%; font-style: italic; color: #999;">
+        Added at: <%= comm['created_date'] %>
+        </span>
             <hr />
     <% end %>
 </p>
