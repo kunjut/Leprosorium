@@ -1,0 +1,8 @@
+<h2>Latest posts</h2>
+<p>
+    <% @posts.each do |i|%>
+        <%= i['id']%>
+        <%= i['created_date']%>
+        <%= i['content']%><br />
+    <% end %>
+</p>
